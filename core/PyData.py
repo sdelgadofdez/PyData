@@ -5,6 +5,7 @@ import sys
 
 
 
+
 def main(file_name: str) -> None:
     spark_conf = SparkConf()
     spark_context = SparkContext(conf=spark_conf)
@@ -30,4 +31,4 @@ def main(file_name: str) -> None:
 
 if __name__ == "__main__":
     main(sys.argv[1])
->>>>>>> Indicators count implemented
+
