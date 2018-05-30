@@ -1,7 +1,8 @@
 import sys
 
 from pyspark import SparkConf, SparkContext
-import time
+import sys
+
 
 
 def main(file_name: str) -> None:
@@ -11,25 +12,22 @@ def main(file_name: str) -> None:
     logger = spark_context._jvm.org.apache.log4j
     logger.LogManager.getLogger("org").setLevel(logger.Level.WARN)
 
-    start_computing_time = time.time()
+    file = spark_context\
+        .textFile(file_name)
+    header = file.first()
+    
+    # TODO: Fix line parsing for csv.
+    d = file.filter(lambda line: line != header)\
+        .map(lambda line: line.split(','))\
+        .map(lambda r: (r[5], r[6]))\
+        .groupByKey()\
+        .map(lambda x: (x[0], set(x[1])))\
+        .mapValues(len)\
+        .collect()
 
-    data = spark_context \
-        .textFile(file_name) \
-        .map(lambda line: line.split(",")) \
-        .map(lambda list: (list[5], 1)) \
-        .reduceByKey(lambda x, y: x + y)
-
-    result = data.collect()
-
-    for pair in result:
-        print(pair)
-
-    total_computing_time = time.time() - start_computing_time
-    print("Computing time: ", str(total_computing_time))
-
-    spark_context.stop()
+    print(d)
 
 
 if __name__ == "__main__":
-
-    main("U.S._Chronic_Disease_Indicators__CDI_.csv")
+    main(sys.argv[1])
+>>>>>>> Indicators count implemented
