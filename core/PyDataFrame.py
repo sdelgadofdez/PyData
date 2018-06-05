@@ -39,9 +39,5 @@ def main(file_name: str) -> None:
     total_computing_time = time.time() - start_computing_time
     print("Computing time: ", str(total_computing_time))
 
-
-# if __name__ == '__main__':
-#     main("D:\Documentos\Python\PyData\File.csv")
-#
 if __name__ == '__main__':
     main(sys.argv[1])

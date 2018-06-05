@@ -1,6 +1,12 @@
 # PyData
 
+## Requirements
+
+* Python 3.x
+* Jupyter
+* Spark
+
 ## Autores
-* Miguel Gonz·lez 
+* Miguel Gonz√°lez 
 * Samuel Delgado
 * Victoria Cruz
